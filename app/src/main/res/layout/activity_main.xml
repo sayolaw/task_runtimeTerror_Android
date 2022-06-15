@@ -18,6 +18,7 @@
             android:layout_weight="1"
             android:background="#00FFFFFF"
             android:backgroundTint="#00FFFFFF"
+            android:onClick="addTasks"
             android:text="@string/add_task"
             android:textColor="#FF9800"
             tools:background="#00FFFFFF"

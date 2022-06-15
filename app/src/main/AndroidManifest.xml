@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Task_runtimeTerror_Android">
         <activity
+            android:name=".addTasks"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

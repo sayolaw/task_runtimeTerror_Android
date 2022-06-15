@@ -1,8 +1,19 @@
 <resources>
     <string name="app_name">task_runtimeTerror_Android</string>
     <string name="add_task">Add Task</string>
+    <string name="add_new_task">Add New Task</string>
+    <string name="category">Category</string>
+    <string name="name">Name</string>
+    <string name="is_sub_task">Is Sub Task?</string>
+    <string name="completion_date">Completion Date</string>
+    <string name="date_created">Date created</string>
     <string-array name="sortlist">
         <item>Title</item>
         <item>Date</item>
+    </string-array>
+    <string-array name="categorylist">
+        <item>Chores</item>
+        <item>Work</item>
+        <item>Exercise</item>
     </string-array>
 </resources>

@@ -38,5 +38,16 @@
             android:layout_weight="1"
             android:entries="@array/sortlist"
             android:minHeight="48dp" />
+
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/tasks_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="75dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

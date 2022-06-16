@@ -151,11 +151,12 @@ public class taskAdapter extends ArrayAdapter {
                 Log.d("first name","this is the "+cursor.getDouble(3));
                 taskModelList.add(new Task(
                         cursor.getInt(0),
-                        cursor.getInt(1),
-                        cursor.getString(2),
+                        cursor.getString(1),
+                        cursor.getInt(2),
                         cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getString(5)
+                        cursor.getInt(4),
+                        cursor.getString(5),
+                        cursor.getString(6)
                 ));
                 Log.d("sayo check","this is"+ taskModelList.get(0).getName());
             } while (cursor.moveToNext());

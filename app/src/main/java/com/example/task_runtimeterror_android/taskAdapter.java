@@ -9,19 +9,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.widget.CalendarView;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class taskAdapter extends ArrayAdapter {
     Context context;
     int layoutRes;
+    String CompletionDate;
     List<Task> taskModelList;
     ListView lv;
     SQLiteDatabase sqLiteDatabase;
@@ -68,7 +72,7 @@ public class taskAdapter extends ArrayAdapter {
         categoryTv.setText(taskModel.getCategory());
         dateCreatedTv.setText(taskModel.getDateCreated());
         dateCompletedTv.setText(taskModel.getDateCompleted());
-        v.findViewById(R.id.button2).setOnClickListener(view -> {
+        v.findViewById(R.id.editTask).setOnClickListener(view -> {
             deleteTasks(taskModel);
         });
         v.findViewById(R.id.editBtn).setOnClickListener(new View.OnClickListener() {
@@ -78,6 +82,7 @@ public class taskAdapter extends ArrayAdapter {
 
             }
 
+//            @RequiresApi(api = Build.VERSION_CODES.O)
             public void editTasks(Task taskModel) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 LayoutInflater inflater = LayoutInflater.from(context);
@@ -86,44 +91,51 @@ public class taskAdapter extends ArrayAdapter {
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
-                EditText tName = view.findViewById(R.id.name);
-                EditText tDescription = view.findViewById(R.id.description);
-                EditText tPrice = view.findViewById(R.id.price);
-                Log.d("product", "this is product: " + productModel.getId());
-                tName.setText(productModel.getName());
-                tDescription.setText(productModel.getDescription());
-                tPrice.setText(String.valueOf(productModel.getPrice()));
-                view.findViewById(R.id.editButton).setOnClickListener(v -> {
+                CalendarView tDate = view.findViewById(R.id.cDate);
+                tDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                    @Override
+                    public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                        String curDate = String.valueOf(i2);
+                        String month = String.valueOf(i1);
+                        String year = String.valueOf(i);
+                        CompletionDate = year + "-" + month + "-" + curDate;
+
+                    }
+                });
+                String[] catArray = context.getResources().getStringArray(R.array.categorylist);
+                int position = Arrays.asList(catArray).indexOf(taskModel.getCategory());
+                TextView tName = view.findViewById(R.id.name);
+                Spinner tCategory = view.findViewById(R.id.category);
+                String isSub;
+                Switch tIsSub  = view.findViewById(R.id.isSub);
+
+                tName.setText(taskModel.getName());
+                tCategory.setSelection(position);
+
+
+                view.findViewById(R.id.editTask).setOnClickListener(v -> {
                     TextView nName = view.findViewById(R.id.name);
-                    TextView nDescription = view.findViewById(R.id.description);
-                    TextView nPrice = view.findViewById(R.id.price);
+                    Spinner nCategory = view.findViewById(R.id.category);
+                    Switch tisSub = view.findViewById(R.id.isSub);
                     String name = nName.getText().toString().trim();
-                    String description = nDescription.getText().toString().trim();
-                    String price = nPrice.getText().toString().trim();
+                    String category = nCategory.getSelectedItem().toString();
+
 
                     if (name.isEmpty()) {
                         nName.setError("name field is empty");
                         nName.requestFocus();
                         return;
                     }
-                    if (description.isEmpty()) {
-                        nDescription.setError("salary field is empty");
-                        nDescription.requestFocus();
-                        return;
-                    }
-                    if (price.isEmpty()) {
-                        nPrice.setError("salary field is empty");
-                        nPrice.requestFocus();
-                        return;
-                    }
-                    String sql = "UPDATE products SET name = ?, description = ?, price = ? WHERE id = ?";
+
+
+                    String sql = "UPDATE tasks SET name = ?, category = ?, completionDate = ? WHERE id = ?";
                     sqLiteDatabase.execSQL(sql, new String[]{
                             name,
-                            description,
-                            price,
-                            String.valueOf(productModel.getId())
+                            category,
+                            CompletionDate,
+                            String.valueOf(taskModel.getId())
                     });
-                    loadEmployees();
+                    loadTasks();
                     dialog.dismiss();
 
                 });

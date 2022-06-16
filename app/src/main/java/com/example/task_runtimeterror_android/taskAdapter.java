@@ -68,9 +68,9 @@ public class taskAdapter extends ArrayAdapter {
         categoryTv.setText(taskModel.getCategory());
         dateCreatedTv.setText(taskModel.getDateCreated());
         dateCompletedTv.setText(taskModel.getDateCompleted());
-//        v.findViewById(R.id.button2).setOnClickListener(view -> {
-//            deleteProduct(productModel);
-//        });
+        v.findViewById(R.id.button2).setOnClickListener(view -> {
+            deleteTasks(taskModel);
+        });
 //        v.findViewById(R.id.editBtn).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -135,8 +135,20 @@ public class taskAdapter extends ArrayAdapter {
         return v;
 
     }
-
-    private void loadEmployees() {
+    public void deleteTasks(Task taskModel){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Are you sure you want to delete this task");
+        builder.setPositiveButton("Yes",(dialogInterface, i) -> {
+            String sql = "DELETE FROM tasks WHERE id = ?";
+            sqLiteDatabase.execSQL(sql,new Integer[]{taskModel.getId()});
+            loadTasks();
+        });
+        builder.setNegativeButton("No",(d, i) ->{
+            Toast.makeText(context,"Task Not Deleted",Toast.LENGTH_LONG).show();
+        } );
+        builder.create().show();
+    }
+    private void loadTasks() {
 
         String sql = "SELECT * FROM tasks";
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
@@ -162,6 +174,7 @@ public class taskAdapter extends ArrayAdapter {
             } while (cursor.moveToNext());
             cursor.close();
         }
+        notifyDataSetChanged();
 
     }
 }

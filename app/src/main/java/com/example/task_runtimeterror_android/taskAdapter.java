@@ -71,66 +71,66 @@ public class taskAdapter extends ArrayAdapter {
         v.findViewById(R.id.button2).setOnClickListener(view -> {
             deleteTasks(taskModel);
         });
-//        v.findViewById(R.id.editBtn).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                editProduct(productModel);
-//
-//            }
-//
-//            public void editProduct(Product productModel) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//                LayoutInflater inflater = LayoutInflater.from(context);
-//                View view = inflater.inflate(R.layout.dialogeedit, null);
-//                builder.setView(view);
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
-//
-//                EditText tName = view.findViewById(R.id.name);
-//                EditText tDescription = view.findViewById(R.id.description);
-//                EditText tPrice = view.findViewById(R.id.price);
-//                Log.d("product", "this is product: " + productModel.getId());
-//                tName.setText(productModel.getName());
-//                tDescription.setText(productModel.getDescription());
-//                tPrice.setText(String.valueOf(productModel.getPrice()));
-//                view.findViewById(R.id.editButton).setOnClickListener(v -> {
-//                    TextView nName = view.findViewById(R.id.name);
-//                    TextView nDescription = view.findViewById(R.id.description);
-//                    TextView nPrice = view.findViewById(R.id.price);
-//                    String name = nName.getText().toString().trim();
-//                    String description = nDescription.getText().toString().trim();
-//                    String price = nPrice.getText().toString().trim();
-//
-//                    if (name.isEmpty()) {
-//                        nName.setError("name field is empty");
-//                        nName.requestFocus();
-//                        return;
-//                    }
-//                    if (description.isEmpty()) {
-//                        nDescription.setError("salary field is empty");
-//                        nDescription.requestFocus();
-//                        return;
-//                    }
-//                    if (price.isEmpty()) {
-//                        nPrice.setError("salary field is empty");
-//                        nPrice.requestFocus();
-//                        return;
-//                    }
-//                    String sql = "UPDATE products SET name = ?, description = ?, price = ? WHERE id = ?";
-//                    sqLiteDatabase.execSQL(sql, new String[]{
-//                            name,
-//                            description,
-//                            price,
-//                            String.valueOf(productModel.getId())
-//                    });
-//                    loadEmployees();
-//                    dialog.dismiss();
-//
-//                });
-//
-//
-//            }
-//        });
+        v.findViewById(R.id.editBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editTasks(taskModel);
+
+            }
+
+            public void editTasks(Task taskModel) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                LayoutInflater inflater = LayoutInflater.from(context);
+                View view = inflater.inflate(R.layout.taskedit, null);
+                builder.setView(view);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+                EditText tName = view.findViewById(R.id.name);
+                EditText tDescription = view.findViewById(R.id.description);
+                EditText tPrice = view.findViewById(R.id.price);
+                Log.d("product", "this is product: " + productModel.getId());
+                tName.setText(productModel.getName());
+                tDescription.setText(productModel.getDescription());
+                tPrice.setText(String.valueOf(productModel.getPrice()));
+                view.findViewById(R.id.editButton).setOnClickListener(v -> {
+                    TextView nName = view.findViewById(R.id.name);
+                    TextView nDescription = view.findViewById(R.id.description);
+                    TextView nPrice = view.findViewById(R.id.price);
+                    String name = nName.getText().toString().trim();
+                    String description = nDescription.getText().toString().trim();
+                    String price = nPrice.getText().toString().trim();
+
+                    if (name.isEmpty()) {
+                        nName.setError("name field is empty");
+                        nName.requestFocus();
+                        return;
+                    }
+                    if (description.isEmpty()) {
+                        nDescription.setError("salary field is empty");
+                        nDescription.requestFocus();
+                        return;
+                    }
+                    if (price.isEmpty()) {
+                        nPrice.setError("salary field is empty");
+                        nPrice.requestFocus();
+                        return;
+                    }
+                    String sql = "UPDATE products SET name = ?, description = ?, price = ? WHERE id = ?";
+                    sqLiteDatabase.execSQL(sql, new String[]{
+                            name,
+                            description,
+                            price,
+                            String.valueOf(productModel.getId())
+                    });
+                    loadEmployees();
+                    dialog.dismiss();
+
+                });
+
+
+            }
+        });
 
         return v;
 

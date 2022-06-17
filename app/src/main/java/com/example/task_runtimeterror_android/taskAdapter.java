@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -65,13 +66,43 @@ public class taskAdapter extends ArrayAdapter {
         TextView categoryTv = v.findViewById(R.id.category2);
         TextView dateCreatedTv = v.findViewById(R.id.dateC2);
         TextView dateCompletedTv = v.findViewById(R.id.dateComp);
+        Switch completeTask = v.findViewById(R.id.switch1);
+
+
 
 
         Task taskModel = taskModelList.get(position);
         nameTv.setText(taskModel.getName());
         categoryTv.setText(taskModel.getCategory());
+        if(taskModel.getStatus()==1){
+            completeTask.setChecked(true);
+        }
+        else{
+            completeTask.setChecked(false);
+        }
         dateCreatedTv.setText(taskModel.getDateCreated());
         dateCompletedTv.setText(taskModel.getDateCompleted());
+        completeTask.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    String sql = "UPDATE tasks SET status = ? WHERE id = ?";
+                    sqLiteDatabase.execSQL(sql, new String[]{
+                            "1",
+                            String.valueOf(taskModel.getId())
+                    });
+
+                }
+                else{
+                    String sql = "UPDATE tasks SET status = ? WHERE id = ?";
+                    sqLiteDatabase.execSQL(sql, new String[]{
+                            "0",
+                            String.valueOf(taskModel.getId())
+                    });
+                    loadTasks();
+                }
+                };
+        });
         v.findViewById(R.id.editTask).setOnClickListener(view -> {
             deleteTasks(taskModel);
         });

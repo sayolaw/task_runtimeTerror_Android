@@ -62,7 +62,12 @@ public class MainActivity extends AppCompatActivity {
                 "issub VARCHAR(25),"+
                 "dateCreated DATETIME NOT NULL,"+
                 "completionDate DATETIME NOT NULL);";
+        String sql2 = "CREATE TABLE IF NOT EXISTS images(" +
+                "id INTEGER NOT NULL CONSTRAINT image_pk PRIMARY KEY AUTOINCREMENT,"+
+                "taskid INT NOT NULL,"+
+                "image BLOB NOT NULL);";
         sqLiteDatabase.execSQL(sql);
+        sqLiteDatabase.execSQL(sql2);
     }
     public void addTasks(View view){
         startActivity(new Intent(MainActivity.this,addTasks.class));

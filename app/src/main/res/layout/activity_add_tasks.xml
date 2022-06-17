@@ -48,12 +48,11 @@
             android:entries="@array/categorylist"
             android:minHeight="48dp" />
 
-        <Switch
-            android:id="@+id/isSub"
+        <Button
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="@string/is_sub_task" />
+            android:text="Add images" />
 
         <CalendarView
             android:id="@+id/cDate"

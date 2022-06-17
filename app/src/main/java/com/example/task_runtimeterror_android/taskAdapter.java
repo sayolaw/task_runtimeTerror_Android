@@ -2,6 +2,7 @@ package com.example.task_runtimeterror_android;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -106,10 +107,13 @@ public class taskAdapter extends ArrayAdapter {
         v.findViewById(R.id.editTask).setOnClickListener(view -> {
             deleteTasks(taskModel);
         });
+
         v.findViewById(R.id.editBtn).setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
                 editTasks(taskModel);
+
 
             }
 
@@ -118,6 +122,7 @@ public class taskAdapter extends ArrayAdapter {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 LayoutInflater inflater = LayoutInflater.from(context);
                 View view = inflater.inflate(R.layout.taskedit, null);
+
                 builder.setView(view);
                 AlertDialog dialog = builder.create();
                 dialog.show();
@@ -145,6 +150,7 @@ public class taskAdapter extends ArrayAdapter {
 
 
                 view.findViewById(R.id.editTask).setOnClickListener(v -> {
+
                     TextView nName = view.findViewById(R.id.name);
                     Spinner nCategory = view.findViewById(R.id.category);
                     Switch tisSub = view.findViewById(R.id.isSub);

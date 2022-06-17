@@ -5,29 +5,32 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 public class addTasks extends AppCompatActivity {
     SQLiteDatabase sqLiteDatabase;
     String CompletionDate;
+
+    ArrayList<String> categoryList = new ArrayList<String>();
+
+
 //    List<Task> productList;
 //    ListView lv;
 
@@ -38,6 +41,25 @@ public class addTasks extends AppCompatActivity {
         setContentView(R.layout.activity_add_tasks);
         CalendarView tDate = findViewById(R.id.cDate);
         sqLiteDatabase = openOrCreateDatabase("tasks_db",MODE_PRIVATE,null);
+        Spinner tCategory = findViewById(R.id.category);
+        String cat = "SELECT * FROM categories";
+        Cursor cursor = sqLiteDatabase.rawQuery(cat, null);
+        Log.d("cursor", "this is the: " + cursor.getCount());
+
+        if (cursor.moveToFirst()) {
+
+            do {
+                // create an employee instance
+
+                categoryList.add(new String(
+                        cursor.getString(1)
+                ));
+
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryList);
+        tCategory.setAdapter(adapter);
         tDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {

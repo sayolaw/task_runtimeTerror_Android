@@ -24,12 +24,23 @@
             tools:background="#00FFFFFF"
             tools:backgroundTint="#00FFFFFF" />
 
-        <SearchView
+        <EditText
+            android:id="@+id/searchDet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Search"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
 
-        </SearchView>
+        <Button
+            android:id="@+id/searchBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="searchTasks"
+            android:text="Search" />
 
         <Spinner
             android:id="@+id/sortlist"

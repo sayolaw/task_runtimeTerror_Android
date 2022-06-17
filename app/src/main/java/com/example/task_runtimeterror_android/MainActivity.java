@@ -52,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    public void category(View view){
+        startActivity(new Intent(MainActivity.this,categories.class));
+    }
     public void createTables(){
         String sql = "CREATE TABLE IF NOT EXISTS tasks(" +
                 "id INTEGER NOT NULL CONSTRAINT task_pk PRIMARY KEY AUTOINCREMENT,"+

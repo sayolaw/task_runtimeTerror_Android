@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.task_runtimeterror_android">
 
+    <queries></queries>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Task_runtimeTerror_Android">
+        <activity
+            android:name=".categories"
+            android:exported="false" />
         <activity
             android:name=".addTasks"
             android:exported="false" />

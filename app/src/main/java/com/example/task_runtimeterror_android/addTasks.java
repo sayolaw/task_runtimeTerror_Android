@@ -3,8 +3,13 @@ package com.example.task_runtimeterror_android;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
@@ -55,6 +60,20 @@ public class addTasks extends AppCompatActivity {
                 "dateCreated DATETIME NOT NULL,"+
                 "completionDate DATETIME NOT NULL);";
         sqLiteDatabase.execSQL(sql);
+    }
+    public void addImages(View view){
+    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+    startActivityForResult(intent,3);
+    }
+    @SuppressLint("MissingSuperCall")
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data) {
+    Log.d("image","selected");
+    if(resultCode == RESULT_OK && data!=null){
+        Uri selectedImage = data.getData();
+    }
+        super.onActivityResult(requestCode, resultCode, data);
     }
     public void addTask(View view){
         TextView tName = findViewById(R.id.name);

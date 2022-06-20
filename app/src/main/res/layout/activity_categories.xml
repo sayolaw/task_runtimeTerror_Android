@@ -19,7 +19,7 @@
             android:background="#00FFFFFF"
             android:backgroundTint="#00FFFFFF"
             android:onClick="addCategories"
-            android:text="Add Ctegory"
+            android:text="Add Category"
             android:textColor="#FF9800"
             tools:background="#00FFFFFF"
             tools:backgroundTint="#00FFFFFF" />

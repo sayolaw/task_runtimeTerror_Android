@@ -30,6 +30,9 @@ public class addCategories extends AppCompatActivity {
                 "name VARCHAR(20) NOT NULL);";
         sqLiteDatabase.execSQL(sql);
     }
+    public void homeBtn(View view){
+        startActivity(new Intent(this,MainActivity.class));
+    }
     public void addCategory(View view){
         TextView tName = findViewById(R.id.name);
 

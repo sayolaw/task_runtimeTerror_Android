@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -93,10 +94,24 @@ public class addTasks extends AppCompatActivity {
     protected void onActivityResult(int requestCode,int resultCode,Intent data) {
     Log.d("image","selected");
     if(resultCode == RESULT_OK && data!=null){
-        Uri selectedImage = data.getData();
+        String[] filePathColumn = { MediaStore.Images.Media.DATA };
+        ArrayList<String> imagesEncodedList = new ArrayList<String>();
+        String imageEncoded;
+        if(data.getClipData() != null) {
+            int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
+            for(int i = 0; i < count; i++) {
+                Uri imageUri = data.getClipData().getItemAt(i).getUri();
+//                imagesEncodedList.add(imageUri);
+                //do something with the image (save it to some directory or whatever you need to do with it here)
+            }
+        }
+    } else if(data.getData() != null) {
+        String imagePath = data.getData().getPath();
+        //do something with the image (save it to some directory or whatever you need to do with it here)
     }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+        }
+
+
     public void addTask(View view){
         TextView tName = findViewById(R.id.name);
         Spinner tCategory = findViewById(R.id.category);

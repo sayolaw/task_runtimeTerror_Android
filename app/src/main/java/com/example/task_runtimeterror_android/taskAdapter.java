@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -107,6 +108,9 @@ public class taskAdapter extends ArrayAdapter {
         v.findViewById(R.id.editTask).setOnClickListener(view -> {
             deleteTasks(taskModel);
         });
+        v.findViewById(R.id.viewSubs).setOnClickListener(view -> {
+            viewTask(taskModel);
+        });
 
         v.findViewById(R.id.editBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,6 +200,16 @@ public class taskAdapter extends ArrayAdapter {
             Toast.makeText(context,"Task Not Deleted",Toast.LENGTH_LONG).show();
         } );
         builder.create().show();
+    }
+    public void viewTask(Task taskModel){
+        Intent intent = new Intent(context, viewSubs.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", taskModel.getId());
+        bundle.putString("name", taskModel.getName());
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+
+
     }
     private void loadTasks() {
 

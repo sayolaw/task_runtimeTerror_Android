@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Task_runtimeTerror_Android">
         <activity
+            android:name=".viewSubs"
+            android:exported="false" />
+        <activity
             android:name=".addCategories"
             android:exported="false" />
         <activity

@@ -2,6 +2,7 @@ package com.example.task_runtimeterror_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -46,7 +47,8 @@ public class addCategories extends AppCompatActivity {
         String sql = "INSERT INTO categories(name)"+
                 "VALUES(?)";
         sqLiteDatabase.execSQL(sql,new String[]{name});
-        Toast.makeText(addCategories.this, "Task has been added.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(addCategories.this, "Category has been added.", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this,MainActivity.class));
 
     }
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,7 @@ public class subAdapter extends ArrayAdapter {
         View v = convertView;
         if(v == null) v = inflater.inflate(layoutRes,null);
         TextView nameTv = v.findViewById(R.id.name2);
+        Switch switchTv = v.findViewById(R.id.switch2);
 
 
 
@@ -65,6 +67,10 @@ public class subAdapter extends ArrayAdapter {
 
         Sub subModel = subModelList.get(position);
         nameTv.setText(subModel.getName());
+        int check = subModel.getStatus();
+        if(check==1){
+            switchTv.setChecked(true);
+        }
 
 
         v.findViewById(R.id.addSub).setOnClickListener(view -> {

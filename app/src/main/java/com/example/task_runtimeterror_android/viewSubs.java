@@ -35,6 +35,9 @@ public class viewSubs extends AppCompatActivity {
 
         loadSubs();
     }
+    public void homeBtn(View view){
+        startActivity(new Intent(this,MainActivity.class));
+    }
     public void addSub(View view){
         Intent intent = new Intent(this, addSubs.class);
 

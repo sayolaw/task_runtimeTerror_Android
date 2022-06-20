@@ -31,7 +31,7 @@ public class viewSubs extends AppCompatActivity {
         lv = findViewById(R.id.subList);
 
         subList = new ArrayList<>();
-        sqLiteDatabase = openOrCreateDatabase("subtasks",MODE_PRIVATE,null);
+        sqLiteDatabase = openOrCreateDatabase("tasks_db",MODE_PRIVATE,null);
 
         loadSubs();
     }
@@ -59,7 +59,8 @@ public class viewSubs extends AppCompatActivity {
                 subList.add(new Sub(
                         cursor.getInt(0),
                         cursor.getInt(1),
-                        cursor.getString(2)
+                        cursor.getString(2),
+                        cursor.getInt(3)
 
                 ));
 

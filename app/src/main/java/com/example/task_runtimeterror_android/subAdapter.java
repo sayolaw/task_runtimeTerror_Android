@@ -2,6 +2,7 @@ package com.example.task_runtimeterror_android;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -68,14 +70,38 @@ public class subAdapter extends ArrayAdapter {
         Sub subModel = subModelList.get(position);
         nameTv.setText(subModel.getName());
         int check = subModel.getStatus();
-        if(check==1){
+        if(check == 1){
             switchTv.setChecked(true);
+
         }
+        switchTv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-
-        v.findViewById(R.id.addSub).setOnClickListener(view -> {
-            deleteSub(subModel);
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                if(isChecked){
+                String sql = "UPDATE subtasks SET status = ? WHERE id = ?";
+                sqLiteDatabase.execSQL(sql, new String[]{
+                        "1",
+                        String.valueOf(subModel.getId())
+                });
+                }
+                else{
+                    String sql = "UPDATE subtasks SET status = ? WHERE id = ?";
+                    sqLiteDatabase.execSQL(sql, new String[]{
+                            "0",
+                            String.valueOf(subModel.getId())
+                    });
+                }
+                loadSub();
+                Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+            }
         });
+
+
+//        v.findViewById(R.id.addSub).setOnClickListener(view -> {
+//            deleteSub(subModel);
+//        });
 
 
 
@@ -113,8 +139,9 @@ public class subAdapter extends ArrayAdapter {
 
                 subModelList.add(new Sub(
                         cursor.getInt(0),
-                        cursor.getInt(0),
-                        cursor.getString(1)
+                        cursor.getInt(1),
+                        cursor.getString(2),
+                        cursor.getInt(3)
 
                 ));
                 Log.d("sayo check","this is"+ subModelList.get(0).getName());

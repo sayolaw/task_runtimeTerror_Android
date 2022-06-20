@@ -68,8 +68,14 @@ public class MainActivity extends AppCompatActivity {
                 "id INTEGER NOT NULL CONSTRAINT image_pk PRIMARY KEY AUTOINCREMENT,"+
                 "taskid INT NOT NULL,"+
                 "image BLOB NOT NULL);";
+        String sql3 = "CREATE TABLE IF NOT EXISTS subs(" +
+                "id INTEGER NOT NULL CONSTRAINT image_pk PRIMARY KEY AUTOINCREMENT,"+
+                "taskid INT NOT NULL,"+
+                "name VARCHAR(20) NOT NULL,"+
+                "status INT NOT NULL);";
         sqLiteDatabase.execSQL(sql);
         sqLiteDatabase.execSQL(sql2);
+        sqLiteDatabase.execSQL(sql3);
     }
     public void addTasks(View view){
         startActivity(new Intent(MainActivity.this,addTasks.class));

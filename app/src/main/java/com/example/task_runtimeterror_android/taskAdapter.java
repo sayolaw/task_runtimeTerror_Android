@@ -87,21 +87,29 @@ public class taskAdapter extends ArrayAdapter {
         completeTask.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    String sql = "UPDATE tasks SET status = ? WHERE id = ?";
-                    sqLiteDatabase.execSQL(sql, new String[]{
-                            "1",
-                            String.valueOf(taskModel.getId())
-                    });
+                if(b) {
+                    String mainCheck = "SELECT * from subtasks";
+                    String subCheck = "SELECT * from subtasks WHERE status = 1";
+                    Cursor mainCursor = sqLiteDatabase.rawQuery(mainCheck, null);
+                    Cursor subCursor = sqLiteDatabase.rawQuery(subCheck, null);
+                    if (mainCursor.getCount() == subCursor.getCount()) {
+                        String sql = "UPDATE tasks SET status = ? WHERE id = ?";
+                        sqLiteDatabase.execSQL(sql, new String[]{
+                                "1",
+                                String.valueOf(taskModel.getId())
+                        });
 
+                    } else {
+                        String sql = "UPDATE tasks SET status = ? WHERE id = ?";
+                        sqLiteDatabase.execSQL(sql, new String[]{
+                                "0",
+                                String.valueOf(taskModel.getId())
+                        });
+                        loadTasks();
+                    }
                 }
                 else{
-                    String sql = "UPDATE tasks SET status = ? WHERE id = ?";
-                    sqLiteDatabase.execSQL(sql, new String[]{
-                            "0",
-                            String.valueOf(taskModel.getId())
-                    });
-                    loadTasks();
+                    Toast.makeText(context,"All Sub activities havent been completed",Toast.LENGTH_LONG).show();
                 }
                 };
         });
@@ -205,6 +213,7 @@ public class taskAdapter extends ArrayAdapter {
         Intent intent = new Intent(context, viewSubs.class);
         Bundle bundle = new Bundle();
         bundle.putInt("id", taskModel.getId());
+        Toast.makeText(context,"Task id " +taskModel.getId(),Toast.LENGTH_LONG).show();
         bundle.putString("name", taskModel.getName());
         intent.putExtras(bundle);
         context.startActivity(intent);

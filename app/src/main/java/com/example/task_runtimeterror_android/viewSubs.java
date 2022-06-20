@@ -46,7 +46,8 @@ public class viewSubs extends AppCompatActivity {
 
     }
     private void loadSubs() {
-        String sql = "SELECT * FROM subtasks";
+        String sql = "SELECT * FROM subtasks WHERE taskid = "+id;
+
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
 
 

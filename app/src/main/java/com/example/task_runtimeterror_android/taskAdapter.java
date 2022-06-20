@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class taskAdapter extends ArrayAdapter {
     int layoutRes;
     String CompletionDate;
     List<Task> taskModelList;
+    ArrayList<String> categoryList = new ArrayList<String>();
     ListView lv;
     SQLiteDatabase sqLiteDatabase;
 
@@ -64,6 +66,7 @@ public class taskAdapter extends ArrayAdapter {
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = convertView;
         if(v == null) v = inflater.inflate(layoutRes,null);
+
         TextView nameTv = v.findViewById(R.id.name2);
         TextView categoryTv = v.findViewById(R.id.category2);
         TextView dateCreatedTv = v.findViewById(R.id.dateC2);
@@ -72,10 +75,10 @@ public class taskAdapter extends ArrayAdapter {
 
 
 
-
         Task taskModel = taskModelList.get(position);
         nameTv.setText(taskModel.getName());
         categoryTv.setText(taskModel.getCategory());
+        Toast.makeText(context,"Ctaegory "+taskModel.getCategory(),Toast.LENGTH_LONG).show();
         if(taskModel.getStatus()==1){
             completeTask.setChecked(true);
         }
@@ -150,10 +153,28 @@ public class taskAdapter extends ArrayAdapter {
 
                     }
                 });
-                String[] catArray = context.getResources().getStringArray(R.array.categorylist);
-                int position = Arrays.asList(catArray).indexOf(taskModel.getCategory());
-                TextView tName = view.findViewById(R.id.name);
                 Spinner tCategory = view.findViewById(R.id.category);
+                String cat = "SELECT * FROM categories";
+                Cursor cursor = sqLiteDatabase.rawQuery(cat, null);
+                if (cursor.moveToFirst()) {
+
+                    do {
+                        // create an employee instance
+
+                        categoryList.add(new String(
+                                cursor.getString(1)
+                        ));
+
+                    } while (cursor.moveToNext());
+                    cursor.close();
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, categoryList);
+                tCategory.setAdapter(adapter);
+
+//                String[] catArray = context.getResources().getStringArray(categoryList);
+                int position = categoryList.indexOf(taskModel.getCategory());
+                TextView tName = view.findViewById(R.id.name);
+
 
 
                 tName.setText(taskModel.getName());
@@ -163,10 +184,10 @@ public class taskAdapter extends ArrayAdapter {
                 view.findViewById(R.id.addSub).setOnClickListener(v -> {
 
                     TextView nName = view.findViewById(R.id.name);
-                    Spinner nCategory = view.findViewById(R.id.category);
+//                    Spinner nCategory = view.findViewById(R.id.category);
 
                     String name = nName.getText().toString().trim();
-                    String category = nCategory.getSelectedItem().toString();
+                    String category = tCategory.getSelectedItem().toString();
 
 
                     if (name.isEmpty()) {

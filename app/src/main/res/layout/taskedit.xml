@@ -46,7 +46,6 @@
             android:id="@+id/category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/categorylist"
             android:minHeight="48dp" />
 
         <CalendarView

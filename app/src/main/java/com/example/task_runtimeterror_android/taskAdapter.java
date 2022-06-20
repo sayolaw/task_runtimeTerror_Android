@@ -88,11 +88,12 @@ public class taskAdapter extends ArrayAdapter {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {
-                    String mainCheck = "SELECT * from subtasks";
-                    String subCheck = "SELECT * from subtasks WHERE status = 1";
+                    String mainCheck = "SELECT * from subtasks WHERE taskid="+taskModel.getId();
+                    String subCheck = "SELECT * from subtasks WHERE taskid = "+taskModel.getId()+" AND status = 1";
                     Cursor mainCursor = sqLiteDatabase.rawQuery(mainCheck, null);
                     Cursor subCursor = sqLiteDatabase.rawQuery(subCheck, null);
                     if (mainCursor.getCount() == subCursor.getCount()) {
+                        Toast.makeText(context,"All number: "+mainCursor.getCount(),Toast.LENGTH_LONG).show();
                         String sql = "UPDATE tasks SET status = ? WHERE id = ?";
                         sqLiteDatabase.execSQL(sql, new String[]{
                                 "1",
@@ -100,6 +101,7 @@ public class taskAdapter extends ArrayAdapter {
                         });
 
                     } else {
+                        Toast.makeText(context,"All subtasks must be completed before proceeding "+mainCursor.getCount(),Toast.LENGTH_LONG).show();
                         String sql = "UPDATE tasks SET status = ? WHERE id = ?";
                         sqLiteDatabase.execSQL(sql, new String[]{
                                 "0",
@@ -109,7 +111,7 @@ public class taskAdapter extends ArrayAdapter {
                     }
                 }
                 else{
-                    Toast.makeText(context,"All Sub activities havent been completed",Toast.LENGTH_LONG).show();
+
                 }
                 };
         });
@@ -125,8 +127,6 @@ public class taskAdapter extends ArrayAdapter {
 
             public void onClick(View view) {
                 editTasks(taskModel);
-
-
             }
 
 //            @RequiresApi(api = Build.VERSION_CODES.O)

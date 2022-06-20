@@ -29,6 +29,7 @@ import java.util.List;
 public class taskAdapter extends ArrayAdapter {
     Context context;
     int layoutRes;
+
     String CompletionDate;
     List<Task> taskModelList;
     ArrayList<String> categoryList = new ArrayList<String>();
@@ -63,6 +64,7 @@ public class taskAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
+        int count = 0;
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = convertView;
         if(v == null) v = inflater.inflate(layoutRes,null);
@@ -73,17 +75,17 @@ public class taskAdapter extends ArrayAdapter {
         TextView dateCompletedTv = v.findViewById(R.id.dateComp);
         Switch completeTask = v.findViewById(R.id.switch1);
 
-
+        count++;
 
         Task taskModel = taskModelList.get(position);
         nameTv.setText(taskModel.getName());
         categoryTv.setText(taskModel.getCategory());
-        Toast.makeText(context,"Ctaegory "+taskModel.getCategory(),Toast.LENGTH_LONG).show();
-        if(taskModel.getStatus()==1){
-            completeTask.setChecked(true);
-        }
-        else{
-            completeTask.setChecked(false);
+        if(count < 2) {
+            if (taskModel.getStatus() == 1) {
+                completeTask.setChecked(true);
+            } else {
+                completeTask.setChecked(false);
+            }
         }
         dateCreatedTv.setText(taskModel.getDateCreated());
         dateCompletedTv.setText(taskModel.getDateCompleted());
@@ -103,20 +105,24 @@ public class taskAdapter extends ArrayAdapter {
                                 String.valueOf(taskModel.getId())
                         });
 
-                    } else {
+                    }
+                else{
                         Toast.makeText(context,"All subtasks must be completed before proceeding "+mainCursor.getCount(),Toast.LENGTH_LONG).show();
+                        compoundButton.setChecked(false);
+                    }
+                }else {
+
                         String sql = "UPDATE tasks SET status = ? WHERE id = ?";
                         sqLiteDatabase.execSQL(sql, new String[]{
                                 "0",
                                 String.valueOf(taskModel.getId())
                         });
+                    Toast.makeText(context,"taskModel is :  "+taskModel.getId(),Toast.LENGTH_LONG).show();
                         loadTasks();
                     }
                 }
-                else{
 
-                }
-                };
+
         });
         v.findViewById(R.id.addSub).setOnClickListener(view -> {
             deleteTasks(taskModel);

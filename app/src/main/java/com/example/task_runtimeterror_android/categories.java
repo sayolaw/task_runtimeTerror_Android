@@ -34,6 +34,9 @@ public class categories extends AppCompatActivity {
     public void addCategories(View view){
         startActivity(new Intent(categories.this,addCategories.class));
     }
+    public void homeBtn(View view){
+        startActivity(new Intent(this,MainActivity.class));
+    }
     private void loadCategory() {
         String sql = "SELECT * FROM categories";
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);

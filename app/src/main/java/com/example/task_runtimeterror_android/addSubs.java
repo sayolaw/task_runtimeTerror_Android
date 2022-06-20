@@ -40,7 +40,7 @@ public class addSubs extends AppCompatActivity {
                 "VALUES(?,?,?)";
         sqLiteDatabase.execSQL(sql,new String[]{String.valueOf(id),name,"0"});
         Toast.makeText(addSubs.this, "subTask has been added.", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this,categories.class));
+        startActivity(new Intent(this,MainActivity.class));
 
     }
 }

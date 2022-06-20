@@ -105,7 +105,7 @@ public class taskAdapter extends ArrayAdapter {
                 }
                 };
         });
-        v.findViewById(R.id.editTask).setOnClickListener(view -> {
+        v.findViewById(R.id.addSub).setOnClickListener(view -> {
             deleteTasks(taskModel);
         });
         v.findViewById(R.id.viewSubs).setOnClickListener(view -> {
@@ -153,7 +153,7 @@ public class taskAdapter extends ArrayAdapter {
                 tCategory.setSelection(position);
 
 
-                view.findViewById(R.id.editTask).setOnClickListener(v -> {
+                view.findViewById(R.id.addSub).setOnClickListener(v -> {
 
                     TextView nName = view.findViewById(R.id.name);
                     Spinner nCategory = view.findViewById(R.id.category);

@@ -9,31 +9,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class viewSubs extends AppCompatActivity {
-
+    int id;
+    String task;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_subs);
+        Bundle bundle = getIntent().getExtras();
+        id = bundle.getInt("id");
+        task = bundle.getString("name");
     }
     public void addSub(View view){
-        startActivity(new Intent(viewSubs.this,addSubs.class));
-        TextView tName = findViewById(R.id.su);
+        Intent intent = new Intent(this, addSubs.class);
 
-        String name = tName.getText().toString().trim();
-
-
-
-        if(name.isEmpty()){
-            tName.setError("name field is empty");
-            tName.requestFocus();
-            return;
-        }
-
-
-        String sql = "INSERT INTO categories(name)"+
-                "VALUES(?)";
-        sqLiteDatabase.execSQL(sql,new String[]{name});
-        Toast.makeText(addCategories.this, "Task has been added.", Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+        bundle.putString("name", task);
+        intent.putExtras(bundle);
+        startActivity(intent);
 
     }
 

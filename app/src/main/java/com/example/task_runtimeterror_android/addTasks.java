@@ -116,21 +116,21 @@ public class addTasks extends AppCompatActivity {
         TextView tName = findViewById(R.id.name);
         Spinner tCategory = findViewById(R.id.category);
         String isSub;
-        Switch tIsSub  = findViewById(R.id.isSub);
+//        Switch tIsSub  = findViewById(R.id.isSub);
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.CANADA);
         String date = sdf.format(calendar.getTime());
-        if(tIsSub.isChecked()){
-            isSub = "1";
-        }
-        else{
-            isSub = "0";
-        }
+//        if(tIsSub.isChecked()){
+//            isSub = "1";
+//        }
+//        else{
+//            isSub = "0";
+//        }
         String name = tName.getText().toString().trim();
         String category = tCategory.getSelectedItem().toString().trim();
         String cDate = CompletionDate;
         Toast.makeText(addTasks.this, "name:"+name+" category: " +category+
-                " isSub: " +isSub+" date_created: " + date+" date completed: "+cDate
+                " isSub: date_created: " + date+" date completed: "+cDate
                 , Toast.LENGTH_LONG).show();
 
         if(name.isEmpty()){
@@ -142,7 +142,7 @@ public class addTasks extends AppCompatActivity {
 
         String sql = "INSERT INTO tasks(name,category,status,isSub,dateCreated,completionDate)"+
                 "VALUES(?, ?, ?, ?, ?, ?)";
-        sqLiteDatabase.execSQL(sql,new String[]{name,category, "0",isSub,date,cDate});
+        sqLiteDatabase.execSQL(sql,new String[]{name,category, "0","0",date,cDate});
         Toast.makeText(addTasks.this, "Task has been added.", Toast.LENGTH_SHORT).show();
 
     }

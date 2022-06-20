@@ -154,8 +154,7 @@ public class taskAdapter extends ArrayAdapter {
                 int position = Arrays.asList(catArray).indexOf(taskModel.getCategory());
                 TextView tName = view.findViewById(R.id.name);
                 Spinner tCategory = view.findViewById(R.id.category);
-                String isSub;
-                Switch tIsSub  = view.findViewById(R.id.isSub);
+
 
                 tName.setText(taskModel.getName());
                 tCategory.setSelection(position);
@@ -165,7 +164,7 @@ public class taskAdapter extends ArrayAdapter {
 
                     TextView nName = view.findViewById(R.id.name);
                     Spinner nCategory = view.findViewById(R.id.category);
-                    Switch tisSub = view.findViewById(R.id.isSub);
+
                     String name = nName.getText().toString().trim();
                     String category = nCategory.getSelectedItem().toString();
 

@@ -92,7 +92,7 @@ public class subAdapter extends ArrayAdapter {
                             String.valueOf(subModel.getId())
                     });
                 }
-                loadSub();
+                loadSub(subModel);
                 Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);
             }
@@ -111,22 +111,22 @@ public class subAdapter extends ArrayAdapter {
         return v;
 
     }
-    public void deleteSub(Sub subModel){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Are you sure you want to delete this Sub task");
-        builder.setPositiveButton("Yes",(dialogInterface, i) -> {
-            String sql = "DELETE FROM subtasks WHERE id = ?";
-            sqLiteDatabase.execSQL(sql,new Integer[]{subModel.getId()});
-            loadSub();
-        });
-        builder.setNegativeButton("No",(d, i) ->{
-            Toast.makeText(context,"Sub Not Deleted",Toast.LENGTH_LONG).show();
-        } );
-        builder.create().show();
-    }
-    private void loadSub() {
+//    public void deleteSub(Sub subModel){
+//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//        builder.setTitle("Are you sure you want to delete this Sub task");
+//        builder.setPositiveButton("Yes",(dialogInterface, i) -> {
+//            String sql = "DELETE FROM subtasks WHERE id = ?";
+//            sqLiteDatabase.execSQL(sql,new Integer[]{subModel.getId()});
+//            loadSub(S);
+//        });
+//        builder.setNegativeButton("No",(d, i) ->{
+//            Toast.makeText(context,"Sub Not Deleted",Toast.LENGTH_LONG).show();
+//        } );
+//        builder.create().show();
+//    }
+    private void loadSub(Sub submodel) {
 
-        String sql = "SELECT * FROM subtasks";
+        String sql = "SELECT * FROM subtasks WHERE taskid = "+submodel.gettaskId();
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
 
 

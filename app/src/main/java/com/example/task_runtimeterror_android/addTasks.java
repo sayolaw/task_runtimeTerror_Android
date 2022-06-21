@@ -143,7 +143,7 @@ public class addTasks extends AppCompatActivity {
         String sql = "INSERT INTO tasks(name,category,status,isSub,dateCreated,completionDate)"+
                 "VALUES(?, ?, ?, ?, ?, ?)";
         sqLiteDatabase.execSQL(sql,new String[]{name,category, "0","0",date,cDate});
-        Toast.makeText(addTasks.this, "Task has been added.", Toast.LENGTH_SHORT).show();
-
+//        Toast.makeText(addTasks.this, "Task has been added.", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this,MainActivity.class));
     }
 }

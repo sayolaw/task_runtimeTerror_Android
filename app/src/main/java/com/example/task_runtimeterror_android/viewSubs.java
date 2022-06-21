@@ -32,7 +32,8 @@ public class viewSubs extends AppCompatActivity {
 
         subList = new ArrayList<>();
         sqLiteDatabase = openOrCreateDatabase("tasks_db",MODE_PRIVATE,null);
-
+        TextView header = findViewById(R.id.taskName);
+        header.setText(task);
         loadSubs();
     }
     public void homeBtn(View view){

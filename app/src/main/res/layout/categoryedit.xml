@@ -31,10 +31,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="Name"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:text="@string/name" />
+            android:minHeight="48dp" />
 
 
         <Button
